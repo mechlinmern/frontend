@@ -16,10 +16,7 @@ const Home = () => {
             >
                 <Image src={Admin}/>
                     <Card.Content>
-                        <Card.Header>Admin</Card.Header>
-                        <Card.Description>
-                            Login to continue...
-                        </Card.Description>
+                        <Card.Header textAlign='center'>Admin</Card.Header>
                     </Card.Content>
             </Card>
         </>

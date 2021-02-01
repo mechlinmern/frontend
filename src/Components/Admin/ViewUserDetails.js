@@ -5,11 +5,9 @@ import { UsersContext } from '../../Contexts/UsersContext';
 import { useHistory } from 'react-router';
 import AdminDashboard from './AdminDashboard';
 import SearchUser from './SearchUser';
-import { SearchContext } from '../../Contexts/SearchContext';
 
 const ViewUserDetails = () => {
     const history = useHistory();
-    const {search, setSearch} = useContext(SearchContext);
     const {user, setUser} = useContext(UsersContext);
     const headers = ["Name", "Email", "Contact", "Profile", "Experience", "Duration", "Password", "Status"];
     const [users, setUsers] = useState();
@@ -17,10 +15,7 @@ const ViewUserDetails = () => {
 
     useEffect(() => {
         axios.get("http://localhost:5000/users")
-            .then(res => {
-                setUsers(res.data);
-                setSearch(res.data);
-            })
+            .then(res => setUsers(res.data))
             .catch(err => setMessage(err))
     }, []);
 
@@ -92,14 +87,17 @@ const ViewUserDetails = () => {
                                     }
                                 }>Update</Button>
                                 <Button size='small' color='green' onClick={
-                                    () => console.log(index)
+                                    async () => {
+                                        const res = await axios.post(`http://localhost:5000/users/sendquiz/${item._id}`);
+                                        res.data ? alert(`${res.data.msg}`) : alert(`${res}`);
+                                    }
                                 }>Send Quiz</Button>
                                 <Button size='small' color='red' onClick={
                                     async () => {
                                         const res = await axios.delete(`http://localhost:5000/users/delete/${item._id}`);
-                                        if(res.data) {
-                                            alert(`${res.data.name} is deleted successfully.`);
-                                        }
+                                        res.data ? alert(`${res.data.name} is deleted successfully.`) : alert(`${res}`);
+                                        const user = await axios.get("http://localhost:5000/users");
+                                        setUsers(user.data);
                                     }
                                 }>Delete</Button>
                             </Table.Row>
