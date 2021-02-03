@@ -4,15 +4,22 @@ import { UsersContext } from '../../Contexts/UsersContext';
 import axios from 'axios';
 
 const SearchUser = () => {
-    const {users, setUsers} = useContext(UsersContext);
-    const [input, setInput] = useState(null)
+    const {user, setUser} = useContext(UsersContext);
+    const [input, setInput] = useState({
+        name: ""
+    })
     const setSearch = event => {
         const {value} = event.target;
-        setInput(value);
+        setInput(()=> {
+            return {
+                name: value
+            }
+        });
     }
+    
     const getSearch = async () => {
-        const res = await axios.get('http://localhost:5000/users/find', input);
-        //res.data ? setUsers(res.data) : setUsers(res);
+        const users = await axios.post('http://localhost:5000/users/find', input)
+        setUser(users.data);
     }
 
     return (
@@ -21,7 +28,7 @@ const SearchUser = () => {
                 <Input 
                     icon='search'
                     iconPosition='left'
-                    placeholder='Search'
+                    placeholder='Search Name'
                     onChange={setSearch}
                 />
                 <Button

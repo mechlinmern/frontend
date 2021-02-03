@@ -5,17 +5,17 @@ import { UsersContext } from '../../Contexts/UsersContext';
 import { useHistory } from 'react-router';
 import AdminDashboard from './AdminDashboard';
 import SearchUser from './SearchUser';
+import Gender from '../Icons/Gender';
 
 const ViewUserDetails = () => {
     const history = useHistory();
     const {user, setUser} = useContext(UsersContext);
     const headers = ["Name", "Email", "Contact", "Profile", "Experience", "Duration", "Password", "Status"];
-    const [users, setUsers] = useState();
     const [message, setMessage] = useState("Loading...");
 
     useEffect(() => {
         axios.get("http://localhost:5000/users")
-            .then(res => setUsers(res.data))
+            .then(res => setUser(res.data))
             .catch(err => setMessage(err))
     }, []);
 
@@ -36,10 +36,11 @@ const ViewUserDetails = () => {
                 
                 <Table.Body>
                     {
-                        users ? users.map((item, index) => (
+                        user ? user.map((item, index) => (
                             <Table.Row key={index}>
                                 <Table.Cell>
                                     {item.name}
+                                    <Gender gender={item.gender}/>
                                 </Table.Cell>
                                 <Table.Cell>
                                     {item.email}
@@ -97,7 +98,7 @@ const ViewUserDetails = () => {
                                         const res = await axios.delete(`http://localhost:5000/users/delete/${item._id}`);
                                         res.data ? alert(`${res.data.name} is deleted successfully.`) : alert(`${res}`);
                                         const user = await axios.get("http://localhost:5000/users");
-                                        setUsers(user.data);
+                                        setUser(user.data);
                                     }
                                 }>Delete</Button>
                             </Table.Row>

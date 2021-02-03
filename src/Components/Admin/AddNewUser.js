@@ -8,7 +8,9 @@ const AddNewUser = () => {
     const options = ['Select Profile', 'MERN', '.NET', 'Angular', 'Others'];
     const [select, setSelect] = useState();
     const radios = ['Freshers', 'Experienced'];
+    const genders = ['Male', 'Female'];
     const [radio, setRadio] = useState(null);
+    const [gender, setGender] = useState(null);
     const [input, setInput] = useState({
         name: "",
         email: "",
@@ -63,6 +65,7 @@ const AddNewUser = () => {
         const newUser = {
             name: input.name,
             email: input.email,
+            gender: gender,
             contact: input.contact,
             profile: select,
             experience: radio,
@@ -126,6 +129,18 @@ const AddNewUser = () => {
                                     />
                                 )
                             }
+                            {
+                                genders.map((item, index) => 
+                                    <Form.Field
+                                        control={Radio}
+                                        label={item}
+                                        value={item}
+                                        key={index}
+                                        checked={gender === item}
+                                        onChange={() => setGender(item)}
+                                    />
+                                )
+                            }
                             <Form.Field>
                                 <select 
                                     value={select}
@@ -173,7 +188,7 @@ const AddNewUser = () => {
                                 type='submit' 
                                 color="blue" 
                                 onClick={handleButtonEvent}
-                            >Login</Button> 
+                            >Add</Button> 
                         </Form>
                     </Card.Description>
                 </Card.Content>

@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react';
+import { Icon, Menu } from 'semantic-ui-react';
 import { AdminContext } from '../../Contexts/AdminContext';
+import Gender from '../Icons/Gender';
 
 const AdminDashboard = () => {
     const {admin, setAdmin} = useContext(AdminContext);
@@ -13,6 +14,7 @@ const AdminDashboard = () => {
             return {
                 id: contextValue.id,
                 username: contextValue.username,
+                gender: contextValue.gender,
                 menu: name
             }
         })
@@ -21,13 +23,14 @@ const AdminDashboard = () => {
     return (
         <>
             <Menu pointing>
-                <Menu.Item header>{admin.username}</Menu.Item>
+                <Menu.Item header>{admin.username} <Gender gender={admin.gender}/></Menu.Item>
                 <Menu.Item
                     name='add_new_user'
                     active={admin.menu === 'add_new_user'}
                     onClick={handleMenuEvent}
                 >
                     Add New User
+                    <Icon name='user plus' />
                 </Menu.Item>
 
                 <Menu.Item
@@ -36,6 +39,7 @@ const AdminDashboard = () => {
                     onClick={handleMenuEvent}
                 >
                     View User Details
+                    <Icon name='users' />
                 </Menu.Item>
             </Menu>
         </>

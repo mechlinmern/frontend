@@ -15,6 +15,7 @@ const App = () => {
   const [admin, setAdmin] = useState({
     id: "",
     username: "",
+    gender: "",
     menu: "add_new_user"
   });
   const value = useMemo(() => ({admin, setAdmin}), [admin, setAdmin]);

@@ -9,6 +9,8 @@ const UpdateUserDetails = () => {
     const {user, setUser} = useContext(UsersContext);
     const options = ['MERN', '.NET', 'Angular', 'Others'];
     const radios = ['Freshers', 'Experienced'];
+    const genders = ['Male', 'Female'];
+    const [gender, setGender] = useState(user.gender);
     const [radio, setRadio] = useState(user.experience);
     const [select, setSelect] = useState(user.profile);
     const [input, setInput] = useState({
@@ -65,6 +67,7 @@ const UpdateUserDetails = () => {
         const updateUser = {
             name: input.name,
             email: input.email,
+            gender: gender,
             contact: input.contact,
             profile: select,
             experience: radio,
@@ -102,7 +105,9 @@ const UpdateUserDetails = () => {
 
     const handleFormEvent = event => {
         event.preventDefault();
-        setTimeout(() => {
+        setTimeout(async () => {
+            const user = await axios.get("http://localhost:5000/users");
+            setUser(user.data);
             history.push('./view_user_details');
         }, 2000);
     }
@@ -136,6 +141,18 @@ const UpdateUserDetails = () => {
                                             onChange={handleInputEvent}
                                         />
                                     </Form.Field>
+                                    {
+                                        genders.map((item, index) => 
+                                            <Form.Field
+                                                control={Radio}
+                                                label={item}
+                                                value={item}
+                                                key={index}
+                                                checked={gender === item}
+                                                onChange={() => setGender(item)}
+                                            />
+                                        )
+                                    }
                                     <Form.Field>
                                         <label>Contact</label>
                                         <Input

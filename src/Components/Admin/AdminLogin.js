@@ -40,7 +40,7 @@ const AdminLogin = () => {
         axios.post("http://localhost:5000/admin", input)
             .then(res => {
                 if(res.data.token) {
-                    const {id, username} = res.data.admin;
+                    const {id, username, gender} = res.data.admin;
                    
                     setMessage(() => {
                         return {
@@ -57,6 +57,7 @@ const AdminLogin = () => {
                         return {
                             id: id,
                             username: username,
+                            gender: gender,
                             menu: contextValue.menu
                         }
                     });
