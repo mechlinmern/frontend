@@ -10,6 +10,7 @@ import ViewUserDetails from './Components/Admin/ViewUserDetails';
 import { UsersContext } from './Contexts/UsersContext';
 import UpdateUserDetails from './Components/Admin/UpdateUserDetails';
 import SearchUser from './Components/Admin/SearchUser';
+import UploadFile from './Components/Admin/UploadFile';
 
 const App = () => {
   const [admin, setAdmin] = useState({
@@ -30,6 +31,7 @@ const App = () => {
           <Route exact path='/admin_login' component={AdminLogin}/>
           <Route exact path='/admin_dashboard' component={AdminDashboard}/>
           <Route exact path='/add_new_user' component={AddNewUser}/>
+          <Route exact path='/upload_file' component={UploadFile} />
           <UsersContext.Provider value={details}>
             <Route exact path='/view_user_details' component={ViewUserDetails}/>
             <Route exact path='/search_user' component={SearchUser}/>

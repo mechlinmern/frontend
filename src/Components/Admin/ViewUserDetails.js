@@ -72,8 +72,8 @@ const ViewUserDetails = () => {
                                         <Label as='a' tag>
                                             Added
                                         </Label> : 
-                                        <Label as='a' color={item.status === "passed" ? 
-                                            'green' : item.status === "failed" ? 'red' :
+                                        <Label as='a' color={item.status === "Passed" ? 
+                                            'green' : item.status === "Failed" ? 'red' :
                                             'orange'
                                         } tag>
                                             {item.status}
@@ -91,6 +91,8 @@ const ViewUserDetails = () => {
                                     async () => {
                                         const res = await axios.post(`http://localhost:5000/users/sendquiz/${item._id}`);
                                         res.data ? alert(`${res.data.msg}`) : alert(`${res}`);
+                                        const user = await axios.get("http://localhost:5000/users");
+                                        setUser(user.data);
                                     }
                                 }>Send Quiz</Button>
                                 <Button size='small' color='red' onClick={

@@ -41,6 +41,15 @@ const AdminDashboard = () => {
                     View User Details
                     <Icon name='users' />
                 </Menu.Item>
+
+                <Menu.Item
+                    name='upload_file'
+                    active={admin.menu === 'upload_file'}
+                    onClick={handleMenuEvent}
+                >
+                    Upload Question
+                    <Icon name='file alternate' />
+                </Menu.Item>
             </Menu>
         </>
     )
